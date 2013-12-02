@@ -1,0 +1,32 @@
+.well-title{
+  font-size: 12px;
+  font-weight: bold;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  margin-top: -7px;
+}
+
+.ui-slider{
+    width:100px;  
+}
+
+h5{line-height: 12px;}
+
+#footer{border-top:1px solid #DDDDDD; margin-top:20px; background-color:#EEEEEE; padding: 10px 0px 20px; margin-bottom:-20px}
+
+#explain-note{
+	font-weight: lighter
+}
+
+.active {
+	font-weight: bold;
+	color:#000000;
+}
+
+.hide-element {
+  visibility: hidden !important;
+  display: hidden;
+}
+

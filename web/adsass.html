@@ -1,0 +1,201 @@
+<HTML>
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <title>ADS All-Sky survey on WorldWide Telescope</title>
+
+    <style>
+    #slider .ui-slider-handle {
+        background: #ef2929;
+    }
+    </style>
+
+</head>
+
+<body onload="initialize()">
+    <div class="container">
+
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">The ADS All Sky Survey</a>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="about.html">
+                            <span class="glyphicon glyphicon-bullhorn"></span>About</a>
+                    </li>
+                    <li>
+                        <a href="videos.html">
+                            <span class="glyphicon glyphicon-play"></span>Watch video tutorials</a>
+                    </li>
+                </ul>
+
+                <p class="navbar-text pull-right">Astronomy articles. In the sky.</p>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="well">
+            <button type="button" class="btn btn-danger pull-right" style="margin:0 10 0 10" id="selectBtn">
+                Select tool
+            </button>
+
+            <div class="well-title">CHOOSE HEATMAP</div>
+
+            <span id="facetsList">
+                <span class="label label-info">Object</span>
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/allSources">All</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Star">Stars</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Galaxy">Galaxies</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/HII-region">HII regions</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Nebula">Nebulae</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Other">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <br>
+                <span class="label label-info">Band</span>
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Radio">Radio</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/Infrared">Infrared</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/UV">Ultraviolet</a>&nbsp;
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/X">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <br>
+                <span class="label label-info">Custom</span>
+                <a href="http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/harvard-ads-authors/HiPS">Harvard/CfA</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <br>
+            <span class="label label-info">Year</span>
+            <div style="margin-left:14px; display: inline-block;" id="slider-range-max" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+            </div>
+
+
+            <div style="margin-top:10px" class="well-title">BACKGROUND LAYER</div>
+            <span id="base-list">
+                <span id="toggle-list">
+                    <a href="Digitized Sky Survey (Color)"> Optical </a> &nbsp;
+                    <a href="2MASS: Catalog (Synthetic, Near Infrared)"> 2MASS </a> &nbsp;
+                    <a href="WISE All Sky (Infrared)" class="label label-info"> WISE </a>
+                    &nbsp;
+                    <a href="SFD Dust Map (Infrared)"> SFD </a>
+                    &nbsp;
+                    <a href="IRIS: Improved Reprocessing of IRAS Survey (Infrared)"> IRIS </a>
+                    &nbsp;
+                    <a href="GLIMPSE/MIPSGAL"> GLIMPSE </a>
+                    &nbsp;
+                    <a href="Hydrogen Alpha Full Sky Map"> H-alpha </a>
+                    &nbsp;
+                    <a href="RASS: ROSAT All Sky Survey (X-ray)"> ROSAT  </a>
+                    &nbsp;
+                    <a href="Fermi (Gamma)"> Fermi </a>
+                    &nbsp;
+                    <a href="VLSS: VLA Low-frequency Sky Survey (Radio)"> VLSS </a>
+                    &nbsp;
+                </span>
+            </span>
+            <br>
+            <div style="margin-left:10px; margin-top:10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+
+                <div id="WorldWideTelescopeControlHost">
+                    <div id="WWTCanvas" style="width: 1198; height: 518px; border-style: none; border-width: 0px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <center>
+                <h4>ADS All-Sky Survey is a NASA-funded project</h4>
+                <p class="text-muted credit" style="max-width:700px">The ADSASS is a collaboration of the Harvard-Smithsonian Center for Astrophysics, Harvard University, the Strasbourg astronomical Data Center (CDS), and Microsoft Research.</p> <a href="http://projects.iq.harvard.edu/seamlessastronomy/">Seamless Astronomy</a>&nbsp;·&nbsp;<a href="http://adslabs.org">ADS Labs</a>&nbsp;·&nbsp;<a href="http://cdsweb.u-strasbg.fr/">CDS</a>
+            </center>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+// Create the WorldWide telescope object variable
+var wwt;
+// Create variables to hold the changeable settings
+var bShowCrosshairs = true;
+var bShowUI = true;
+var bShowFigures = true;
+// This function initializes the wwt object and registers the wwtReady event
+// once the initialization is done the wwtReady event will be fired
+
+function initialize() {
+    wwt = wwtlib.WWTControl.initControl("WWTCanvas");
+    wwt.add_ready(wwtReady);
+}
+
+function wwtReady() {
+    wwt.settings.set_showCrosshairs(bShowCrosshairs);
+    wwt.settings.set_showConstellationFigures(false);
+    wwt.hideUI(!bShowUI);
+    wwt.settings.set_showConstellationBoundries(false);
+    // Load in the image collection file
+    wwt.loadImageCollection("/adsass.wtml");
+
+    wwt.add_collectionLoaded(default_layers);
+}
+
+function default_layers() {
+    console.log("Set layer");
+    wwt.setBackgroundImageByName("WISE");
+    wwt.setForegroundImageByName("Harvard v All");
+    wwt.setForegroundOpacity(50);
+}
+
+$(function() {
+    $("#slider-opacity").slider({
+        min: 0,
+        max: 100,
+        value: 50,
+        slide: function(event, ui) {
+            wwt.setForegroundOpacity(ui.value);
+        }
+    });
+
+    $("#toggle-list a").click(function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        wwt.setBackgroundImageByName(url);
+
+        //update highlight
+        $("#toggle-list a").each(function(index) {
+            $(this).attr('class', '');
+        });
+        $(this).attr('class', 'label label-info');
+    });
+
+});
+</script>
+
+</HTML>
