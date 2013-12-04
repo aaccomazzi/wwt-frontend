@@ -188,7 +188,7 @@ function initialize() {
 }
 
 function displayCoordinates(event) {
-    var coords = wwt.getRA().toFixed(3).toString() + ", " + wwt.getDec().toFixed(3).toString();
+    var coords = '(α,δ)=' + wwt.getRA().toFixed(2) + ", " + wwt.getDec().toFixed(2) + " FOV= " + wwt.get_fov().toFixed(0) + "°";
     $('#sky-location').text(coords);
 }
 
@@ -207,7 +207,7 @@ function finderScope(parent, obj) {
             'script': script
         },
         success: function(data) {
-            var output = '';
+            var output = '<h4> Papers </h4>';
             uresult = data.split(/\r?\n/);
             //uresult = unique(result);
             var biblist = [];
@@ -238,15 +238,14 @@ function finderScope(parent, obj) {
             biblist = biblist.replace(/\,/g, 'OR%20');
             biblist = 'http://labs.adsabs.harvard.edu/ui/cgi-bin/topicSearch?q=bibcode:(' + biblist + ')'
 
-            $('#finderscope-label').text(obj.id);
-            $('#finderscope .modal-body').html('<a href="' + simbad_url + '" target="_blank"> SIMBAD Entry </a><br> <a href="' + biblist + '" target="_blank"> Open papers in ADS </a>')
+            buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>"
+            buttons += '&nbsp; <a class="btn btn-default" type="button" target="_blank" href="' + biblist + '"> Open papers in ADS </a>'
+
+            $('#finderscope-label').html(obj.id + " " + buttons);
+            $('#finderscope .modal-body').html(output);
             $("#finderscope").modal('show');
         }
     });
-
-    
-
-
 }
 
 function wwtReady() {
@@ -280,6 +279,11 @@ function wwtReady() {
             cat.push(circle);
         }
     });
+
+    $('#WWTCanvas').mouseout(function(e) {
+        wwtlib.WWTControl.singleton.onMouseUp(e)
+    });
+
 }
 
 function showCatalog() {
@@ -367,6 +371,10 @@ $(function() {
         }
     });
     $("#button-source").click(toggleCatalog);
+
+    $('#WWTCanvas').bind('mousewheel DOMMouseScroll', function(e) {
+        e.preventDefault();
+    });
 })
 </script>
 
