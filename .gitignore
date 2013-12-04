@@ -4,3 +4,7 @@
 #*
 *.hpx
 .*
+*.tsv
+merged.json
+simbad.json
+*.wtml
