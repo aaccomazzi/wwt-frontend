@@ -1,3 +1,6 @@
+"""
+Fetch SIMBAD Heat maps from the web
+"""
 import requests
 from BeautifulSoup import BeautifulSoup
 

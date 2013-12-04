@@ -1,3 +1,10 @@
+"""
+Convert healpix maps into cartesian projection maps suitable
+for toasting
+
+Usage:
+python reproject.py healpix_path_without_suffix
+"""
 from glob import glob
 from astropy.io import fits
 from healpy.projector import CartesianProj

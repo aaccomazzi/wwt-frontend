@@ -1,3 +1,6 @@
+"""
+Generate the adsass.wtml file used to load WWT layers
+"""
 from jinja2 import Template
 from glob import glob
 import os

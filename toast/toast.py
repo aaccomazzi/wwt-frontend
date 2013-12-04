@@ -1,3 +1,9 @@
+"""
+Create toast tile directories
+
+Usage:
+python toast.py image_to_toast.png
+"""
 from skimage.io import imread, imsave
 from glob import glob
 from lut import lut2pos
@@ -10,6 +16,10 @@ def resample(x, y, im):
 
 
 def toast(path):
+    """
+    Given a path to a PNG image in cartesian projection,
+    create a toast tile directory with the same name
+    """
     im = imread(path)
     folder = os.path.splitext(path)[0]
 
