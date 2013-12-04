@@ -28,8 +28,8 @@ function finderScope(parent, obj) {
     var simbad_url = 'http://simbad.u-strasbg.fr/simbad/sim-id?Ident=' + encodeURIComponent(obj.id);
 
     var url = 'http://simbad.harvard.edu/simbad/sim-script';
-    var script = 'output script=off\noutput console=off\noutput error=off\nformat object f1 "%BIBCODELIST(R;;1000;%B | %1A | %J)"'
-    script += '\nquery ' + obj.id
+    var script = 'output script=off\noutput console=off\noutput error=off\nformat object f1 "%BIBCODELIST(R;;1000;%B | %1A | %J)"';
+    script += '\nquery ' + obj.id;
 
     $.ajax({
         url: url,
@@ -55,23 +55,23 @@ function finderScope(parent, obj) {
             }
 
             if (truncated) {
-                output += "<p class='small text-danger'>Note: List truncated to 200 papers</p>"
+                output += "<p class='small text-danger'>Note: List truncated to 200 papers</p>";
             }
 
 
             for (var i = 0; i < paper_length; i++) {
                 if ( !! uresult[i]) {
                     output += '<a target="_blank" href="http://adsabs.harvard.edu/abs/' + encodeURIComponent(uresult[i].split('|')[0]) + '">' + uresult[i].split('|')[1].trim() + ' ' + uresult[i].split('|')[2].trim() + '</a><br>';
-                    biblist.push(encodeURIComponent(uresult[i].split('|')[0]))
+                    biblist.push(encodeURIComponent(uresult[i].split('|')[0]));
                 }
             }
 
             biblist = biblist + "";
             biblist = biblist.replace(/\,/g, 'OR%20');
-            biblist = 'http://labs.adsabs.harvard.edu/ui/cgi-bin/topicSearch?q=bibcode:(' + biblist + ')'
+            biblist = 'http://labs.adsabs.harvard.edu/ui/cgi-bin/topicSearch?q=bibcode:(' + biblist + ')';
 
-            buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>"
-            buttons += '&nbsp; <a class="btn btn-default" type="button" target="_blank" href="' + biblist + '"> Open papers in ADS </a>'
+            buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>";
+            buttons += '&nbsp; <a class="btn btn-default" type="button" target="_blank" href="' + biblist + '"> Open papers in ADS </a>';
 
             $('#finderscope-label').html(obj.id + " " + buttons);
             $('#finderscope .modal-body').html(output);
@@ -93,7 +93,7 @@ function wwtReady() {
 
     $("#WWTCanvas").mousemove(displayCoordinates);
     $("#WWTCanvas").scroll(function(e) {
-        e.preventDefault()
+        e.preventDefault();
     });
 
     $.getJSON('simbad.json', function(data) {
@@ -113,7 +113,7 @@ function wwtReady() {
     });
 
     $('#WWTCanvas').mouseout(function(e) {
-        wwtlib.WWTControl.singleton.onMouseUp(e)
+        wwtlib.WWTControl.singleton.onMouseUp(e);
     });
 
 }
