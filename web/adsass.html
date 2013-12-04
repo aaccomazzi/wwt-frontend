@@ -22,8 +22,8 @@
 
 </head>
 
-<body onload="initialize()">
-    <nav class="navbar navbar-default" role="navigation">
+<body onload="initialize()" onresize="resize_canvas()">
+    <nav class="navbar navbar-default" role="navigation" id='navigation'>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -59,86 +59,78 @@
         <!-- /.navbar-collapse -->
     </nav>
 
-    <div class="container">
+    <div class="well" id='facet-ui'>
+        <button type="button" class="btn btn-danger pull-right" style="margin:0 10 0 10" id="button-source">
+            Show Sources
+        </button>
 
-        <div class="well">
-            <button type="button" class="btn btn-danger pull-right" style="margin:0 10 0 10" id="button-source">
-                Show Sources
-            </button>
+        <div class="well-title">CHOOSE HEATMAP</div>
 
-            <div class="well-title">CHOOSE HEATMAP</div>
+        <div class="facets">
 
-            <div class="facets">
-
-                <span id="facet-list">
-                    <span class="label label-info">Object</span>
-                    <a href="allSources_512" class="label label-default">All</a>&nbsp;
-                    <a href="Star_512">Stars</a>&nbsp;
-                    <a href="Galaxy_512">Galaxies</a>&nbsp;
-                    <a href="HII-region_512">HII regions</a>&nbsp;
-                    <a href="Nebula_512">Nebulae</a>&nbsp;
-                    <a href="Other_512">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <br>
-                    <span class="label label-info">Band</span>
-                    <a href="Radio_512">Radio</a>&nbsp;
-                    <a href="Infrared_512">Infrared</a>&nbsp;
-                    <a href="UV_512">Ultraviolet</a>&nbsp;
-                    <a href="X_512">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <br>
-                    <span class="label label-info">Custom</span>
-                    <a href="Harvard v All">Harvard/CfA</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
+            <span id="facet-list">
+                <span class="label label-info">Object</span>
+                <a href="allSources_512" class="label label-default">All</a>&nbsp;
+                <a href="Star_512">Stars</a>&nbsp;
+                <a href="Galaxy_512">Galaxies</a>&nbsp;
+                <a href="HII-region_512">HII regions</a>&nbsp;
+                <a href="Nebula_512">Nebulae</a>&nbsp;
+                <a href="Other_512">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <br>
-                <span class="label label-info">Year</span>
-                <div style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                    <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
-                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
-                </div>
-                <span type="text" id="year-label" class="active" style="margin-left: 8px;   font-weight: bold; color: #ffffff;background-color: #b6b6b6;padding: 2px;border: 1px dashed darkgray;border-radius: 5px; width: 40px;"></span>
-
-            </div>
-
-            <div style="margin-top:10px" class="well-title">BACKGROUND LAYER</div>
-            <span id="base-list">
-                <span id="toggle-list">
-                    <a href="Digitized Sky Survey (Color)"> Optical </a> &nbsp;
-                    <a href="2MASS: Catalog (Synthetic, Near Infrared)"> 2MASS </a> &nbsp;
-                    <a href="WISE All Sky (Infrared)" class="label label-default"> WISE </a>
-                    &nbsp;
-                    <a href="SFD Dust Map (Infrared)"> SFD </a>
-                    &nbsp;
-                    <a href="IRIS: Improved Reprocessing of IRAS Survey (Infrared)"> IRIS </a>
-                    &nbsp;
-                    <a href="GLIMPSE/MIPSGAL"> GLIMPSE </a>
-                    &nbsp;
-                    <a href="Hydrogen Alpha Full Sky Map"> H-alpha </a>
-                    &nbsp;
-                    <a href="RASS: ROSAT All Sky Survey (X-ray)"> ROSAT  </a>
-                    &nbsp;
-                    <a href="Fermi (Gamma)"> Fermi </a>
-                    &nbsp;
-                    <a href="VLSS: VLA Low-frequency Sky Survey (Radio)"> VLSS </a>
-                    &nbsp;
-                </span>
+                <span class="label label-info">Band</span>
+                <a href="Radio_512">Radio</a>&nbsp;
+                <a href="Infrared_512">Infrared</a>&nbsp;
+                <a href="UV_512">Ultraviolet</a>&nbsp;
+                <a href="X_512">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <br>
+                <span class="label label-info">Custom</span>
+                <a href="Harvard v All">Harvard/CfA</a>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             <br>
-            <div style="margin-left:10px; margin-top:10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+            <span class="label label-info">Year</span>
+            <div style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
                 <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                 <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
             </div>
+            <span type="text" id="year-label" class="active" style="margin-left: 8px;   font-weight: bold; color: #ffffff;background-color: #b6b6b6;padding: 2px;border: 1px dashed darkgray;border-radius: 5px; width: 40px;"></span>
+
         </div>
 
-        <div class="row">
-            <div class="span12">
-                <div id="WorldWideTelescopeControlHost">
-                    <div id="WWTCanvas" style="width: 1198; height: 518px; border-style: none; border-width: 0px;">
-                    </div>
-                </div>
-                <span id="sky-location"></span>
-            </div>
-        </div>
+        <div style="margin-top:10px" class="well-title">BACKGROUND LAYER</div>
+        <span id="base-list">
+            <span id="toggle-list">
+                <a href="Digitized Sky Survey (Color)"> Optical </a> &nbsp;
+                <a href="2MASS: Catalog (Synthetic, Near Infrared)"> 2MASS </a> &nbsp;
+                <a href="WISE All Sky (Infrared)" class="label label-default"> WISE </a>
+                &nbsp;
+                <a href="SFD Dust Map (Infrared)"> SFD </a>
+                &nbsp;
+                <a href="IRIS: Improved Reprocessing of IRAS Survey (Infrared)"> IRIS </a>
+                &nbsp;
+                <a href="GLIMPSE/MIPSGAL"> GLIMPSE </a>
+                &nbsp;
+                <a href="Hydrogen Alpha Full Sky Map"> H-alpha </a>
+                &nbsp;
+                <a href="RASS: ROSAT All Sky Survey (X-ray)"> ROSAT  </a>
+                &nbsp;
+                <a href="Fermi (Gamma)"> Fermi </a>
+                &nbsp;
+                <a href="VLSS: VLA Low-frequency Sky Survey (Radio)"> VLSS </a>
+                &nbsp;
+            </span>
+        </span>
         <br>
+        <div style="margin-left:10px; margin-top:10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
+            <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
+        </div>
     </div>
+
+    <div id="WorldWideTelescopeControlHost">
+        <div id="WWTCanvas" style="width: 500px; height: 518px; border-style: none; border-width: 0px;">
+        </div>
+    </div>
+    <span id="sky-location"></span>
 
     <div class="modal fade" id="finderscope" tabindex="-1" role="dialog" aria-labelledby="finderscope-label" aria-hidden="true">
         <div class="modal-dialog">
@@ -165,4 +157,5 @@
 </body>
 
 <script src="adsass.js"></script>
+
 </HTML>

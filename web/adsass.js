@@ -17,7 +17,25 @@ var cat_visible = false;
 function initialize() {
     wwt = wwtlib.WWTControl.initControl("WWTCanvas");
     wwt.add_ready(wwtReady);
+    resize_canvas();
 }
+
+function resize_canvas() {
+
+    div = document.getElementById("WWTCanvas");
+
+    if (div.style.width != (window.innerWidth).toString() + "px") {
+        div.style.width = (window.innerWidth).toString() + "px";
+    }
+
+    if (div.style.height != (window.innerHeight).toString() + "px") {
+        div.style.height = ((window.innerHeight)).toString() + "px";
+    }
+
+    $('#sky-location').css({'bottom': $('#footer').height() + 20 +  'px'});
+}
+
+
 
 function displayCoordinates(event) {
     var coords = '(α,δ)=' + wwt.getRA().toFixed(2) + ", " + wwt.getDec().toFixed(2) + " FOV= " + wwt.get_fov().toFixed(0) + "°";
@@ -158,7 +176,7 @@ function deslectFacets() {
 }
 
 $(function() {
-    
+
     $("#year-label").hide();
 
     $("#slider-opacity").slider({
