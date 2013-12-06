@@ -13,11 +13,22 @@ var cat = [];
 var cat_color = '#ff0000';
 var cat_radius = 5;
 var cat_visible = false;
+var current_layer;
 
 function initialize() {
     wwt = wwtlib.WWTControl.initControl("WWTCanvas");
     wwt.add_ready(wwtReady);
     resize_canvas();
+}
+
+function getParameter(name) {
+    // this next line is why I hate JavaScript
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 function resize_canvas() {
@@ -32,13 +43,14 @@ function resize_canvas() {
         div.style.height = ((window.innerHeight)).toString() + "px";
     }
 
-    $('#sky-location').css({'bottom': $('#footer').height() + 20 +  'px'});
+    $('#sky-location').css({
+        'bottom': $('#footer').height() + 20 + 'px'
+    });
 }
 
 
-
 function displayCoordinates(event) {
-    var coords = '(α,δ)=' + wwt.getRA().toFixed(2) + ", " + wwt.getDec().toFixed(2) + " FOV= " + wwt.get_fov().toFixed(0) + "°";
+    var coords = '(α,δ)=' + (wwt.getRA() * 15).toFixed(2) + "°, " + wwt.getDec().toFixed(2) + "° FOV= " + wwt.get_fov().toFixed(0) + "°";
     $('#sky-location').text(coords);
 }
 
@@ -99,6 +111,7 @@ function finderScope(parent, obj) {
 }
 
 function wwtReady() {
+
     wwt.settings.set_showCrosshairs(true);
     wwt.settings.set_showConstellationFigures(false);
     wwt.hideUI(true);
@@ -155,14 +168,30 @@ function toggleCatalog() {
 }
 
 function default_layers() {
-    console.log("Set layer");
+    var ra = parseFloat(getParameter('ra') || '0');
+    var dec = parseFloat(getParameter('dec') || '0');
+    var fov = parseFloat(getParameter('fov') || '60');
+    var layer = (getParameter('layer') || 'allSources') + '_512';
+
+    current_layer = layer;
+    wwt.setForegroundImageByName(layer);
+
+    $('#facet-list a').each(function(i, o) {
+        if ($(o).attr('href') == layer) {
+            o.click();
+            return;
+        }
+    });
+
+
     wwt.setBackgroundImageByName("WISE");
-    wwt.setForegroundImageByName("allSources_512");
     wwt.setForegroundOpacity(50);
+
+    wwt.gotoRaDecZoom(ra, dec, fov, true);
 }
 
 function setForeground(layer) {
-    console.log("Set heatmap to", layer);
+    current_layer = layer;
     wwt.setForegroundImageByName(layer);
     wwt.setForegroundOpacity($("#slider-opacity").slider("option", "value"));
 }
@@ -226,5 +255,18 @@ $(function() {
 
     $('#WWTCanvas').bind('mousewheel DOMMouseScroll', function(e) {
         e.preventDefault();
+    });
+
+    $('#aladin-link').click(function(e) {
+        e.preventDefault();
+        var ra = wwt.getRA() * 15,
+            dec = wwt.getDec(),
+            fov = wwt.get_fov(),
+            layer = current_layer;
+            layer = layer.slice(0, layer.length - 4); // strip off _512
+        var url = $('#aladin-link').attr('href') + '?ra=' + ra + '&dec=' + dec +
+            '&fov=' + fov + '&layer=' + layer;
+        console.log(url, e)
+        window.open(url);
     });
 });
