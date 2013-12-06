@@ -2,60 +2,72 @@
 Create toast tile directories
 
 Usage:
-python toast.py image_to_toast.png
+python toast.py image_to_toast
 """
-from skimage.io import imread, imsave
-from glob import glob
-from lut import lut2pos
 import os
+
+from astropy.io import fits
 import numpy as np
-from skimage.filter import median_filter
+import healpy as hp
+from healpy import ring2nest, smoothing
+from toasty import toast, healpix_sampler, normalizer
+from skimage.io import imread
 
-def remove_spikes(im):
-    dtype = im.dtype
-    lo, hi = im.min(), im.max()
-
-    im2 = (1. * (im - lo) / (hi - lo))
-    fltr = median_filter(im2, radius=2)
-    diff = np.abs(1. * im2 - fltr)
-    fltr = (fltr * (hi - lo) + lo).astype(dtype)
-
-    bad = diff > max(np.median(diff) * 10, 5)
-    im[bad] = fltr[bad]
-    return im
-
-def resample(x, y, im):
-    x = remove_spikes(lut2pos(x))
-    y = remove_spikes(lut2pos(y))
-    return im[y, x]
+url_tmpl = 'http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/%s/Norder3/Allsky.jpg'
 
 
-def toast(path):
+def natural_order(nside, ind, subn):
+    assert nside <= subn
+    if subn == nside:
+        return np.array([ind])
+    sub = hp.query_polygon(2 * nside,
+                           hp.boundaries(nside, ind, nest=True).T,
+                           nest=True)
+    assert len(sub) == 4
+
+    r = [natural_order(nside * 2, s, subn) for s in np.sort(sub)]
+    return np.vstack((np.hstack((r[0], r[1])), np.hstack((r[2], r[3]))))
+
+
+def aladin_to_healpix(data):
     """
-    Given a path to a PNG image in cartesian projection,
-    create a toast tile directory with the same name
+    Convert Aladin's weird all-sky image tile to a
+    respectable healpix array
     """
-    im = imread(path)
-    folder = os.path.splitext(path)[0]
+    inds = natural_order(8, 0, 512).ravel()
+    result = np.zeros(hp.nside2npix(512), dtype=data.dtype)
+    for tile in xrange(hp.nside2npix(8)):
+        i, j = tile / 27, tile % 27
+        sub = data[data.shape[0] - i * 64 - 64: data.shape[0] - i * 64,
+                   j * 64: j * 64 + 64]
+        sub = sub[::-1].T.ravel()
+        result[inds + tile * 64 * 64] = sub
+    return result
 
-    for base, dirs, files in os.walk('lut_x'):
-        for file in files:
-            pth = os.path.join(base, file)
-            x = imread(pth)
-            y = imread(pth.replace('_x', '_y'))
+def make_lut():
+    x = np.arange(hp.nside2npix(512))
+    hp = healpix_sampler(x, nest=True)
+    def lut_sampler(x, y):
+        result = hp(x, y).astype(np.int)
+        r = result % 256
+        g = (result / 256) % 256
+        b = result / 256 / 256
+        np.dstack((r, g, b)).astype(np.uint8)
+    toast(lut_sampler, 3, 'lut')
 
-            out = resample(x, y, im)
 
-            outbase = base.replace('lut_x', folder)
-            if not os.path.exists(outbase):
-                os.makedirs(outbase)
-            pth = pth.replace('lut_x', folder)
-            imsave(pth, out)
+def run(path):
+    url = url_tmpl % path.split('_512')[0]
+    data = np.array(imread(url))[:, :, 0]
+    data = np.flipud(data)
+    data = aladin_to_healpix(data)
+    sampler = healpix_sampler(data, nest=True)
+    toast(sampler, 3, path.split('.')[0])
 
 
 def main():
     import sys
-    map(toast, sys.argv[1:])
+    map(run, sys.argv[1:])
 
 if __name__ == "__main__":
     main()
