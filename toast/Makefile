@@ -18,7 +18,7 @@ tiles: ${TILES}
 %.png : reproject.py
 	python reproject.py $*
 
-.% : toast.py
+.% : toast.py %.png
 	python toast.py $*.png
 	touch $@
 
