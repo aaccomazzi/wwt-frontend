@@ -4,13 +4,15 @@ Create toast tile directories
 Usage:
 python toast.py image_to_toast
 """
+import logging
+
 import numpy as np
 import healpy as hp
 from toasty import toast, healpix_sampler
 from skimage.io import imread
 
 url_tmpl = 'http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/%s/Norder3/Allsky.jpg'
-
+logging.basicConfig(level=logging.INFO)
 
 def natural_order(nside, ind, subn):
     assert nside <= subn
@@ -54,12 +56,14 @@ def make_lut():
 
 def run(path):
     url = url_tmpl % path.split('_512')[0]
+    logging.info("Fetch %s" % url)
+
     data = np.array(imread(url))[:, :, 0]
     data = np.flipud(data)
     data = aladin_to_healpix(data)
+    logging.info("Toasting %s" % path)
     sampler = healpix_sampler(data, nest=True)
     toast(sampler, 3, path.split('.')[0])
-
 
 def main():
     import sys

@@ -11,7 +11,7 @@ tiles: ${TILES}
 %.hpx : download.py
 	python download.py
 
-.% : toast.py %.hpx
+.% : toast.py
 	python toast.py $*
 	touch $@
 
