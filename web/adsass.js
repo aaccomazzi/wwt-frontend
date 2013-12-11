@@ -54,6 +54,51 @@ function displayCoordinates(event) {
     $('#sky-location').text(coords);
 }
 
+function _gotoSimbadResult(data) {
+    console.log(data);
+    if (data.substr(0, 7) == '::error') return false;
+    var result = data.split(' ');
+    if (result.length != 2) return false;
+    var ra = parseFloat(result[0]),
+        dec = parseFloat(result[1]);
+    if (isNaN(ra) || isNaN(dec)) return false;
+
+    wwt.gotoRaDecZoom(ra, dec, wwt.get_fov(), true);
+    return true;
+}
+
+function gotoQuery(query) {
+    var simbad_url = 'http://simbad.harvard.edu/simbad/sim-script';
+    var script = 'output script=off\noutput console=off\noutput error=off\n format object form1 "%COO(d;A) %COO(d;D)"\nquery id ' + query;
+
+    var squery = query.split(' ');
+    if (squery.length == 2) {
+        var ra=parseFloat(squery[0]), dec=parseFloat(squery[1]);
+        if (!isNaN(ra) && !isNaN(dec)) {
+            wwt.gotoRaDecZoom(ra, dec, wwt.get_fov(), true);
+            $('#goto-query').attr('placeholder', 'Go to...');
+            return;
+        }
+    }
+
+    $.ajax({
+            url: simbad_url,
+            type: "POST",
+            data: {
+                'submit': 'submit script',
+                'script': script
+            },
+            success: function(data) {
+                if (!_gotoSimbadResult(data)) {
+                    $('#goto-query').attr('placeholder', 'invalid').val('');
+                    return;
+                }
+                $('#goto-query').attr('placeholder', 'Go to...');
+            }
+    });
+}
+
+
 function finderScope(parent, obj) {
     var simbad_url = 'http://simbad.u-strasbg.fr/simbad/sim-id?Ident=' + encodeURIComponent(obj.id);
 
@@ -263,10 +308,20 @@ $(function() {
             dec = wwt.getDec(),
             fov = wwt.get_fov(),
             layer = current_layer;
-            layer = layer.slice(0, layer.length - 4); // strip off _512
+        layer = layer.slice(0, layer.length - 4); // strip off _512
         var url = $('#aladin-link').attr('href') + '?ra=' + ra + '&dec=' + dec +
             '&fov=' + fov + '&layer=' + layer;
-        console.log(url, e)
         window.open(url);
+    });
+
+    $('#btn-goto').click(function(e) {
+        var query = $('#goto-query').val();
+        gotoQuery(query);
+    });
+
+    $('#goto-query').keyup(function(e){ // listen to enter key
+        if (e.keyCode != 13) return;
+        var query = $(this).val();
+        gotoQuery(query);
     });
 });

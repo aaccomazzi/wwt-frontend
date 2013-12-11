@@ -51,9 +51,17 @@
     </nav>
 
     <div class="well" id='facet-ui'>
-        <button type="button" class="btn btn-danger pull-right" style="margin:0 10 0 10" id="button-source">
-            Show Sources
-        </button>
+        <div class="btn-toolbar pull-right" style="width: 140px;">
+            <button type="button" class="btn btn-danger" id="button-source">
+                Show Sources
+            </button>
+            <br>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Go to..." id="goto-query">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="btn-goto"><span class="glyphicon glyphicon-search"></span>&nbsp;</button></span>
+            </div>
+        </div>
 
         <div class="well-title">CHOOSE HEATMAP</div>
 
@@ -131,10 +139,11 @@
                     <h4 class="modal-title" id="finderscope-label"></h4>
                 </div>
                 <div class="modal-body">
-                    test
                 </div>
             </div>
         </div>
+    </div>
+
     </div>
 
     <div id="footer">

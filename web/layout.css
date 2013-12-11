@@ -22,6 +22,11 @@ h5 {
     line-height: 12px;
 }
 
+.input-group, .btn {
+    width:100%;
+    margin-bottom:5px;
+}
+
 .navbar {
     margin: 0px;
 }
