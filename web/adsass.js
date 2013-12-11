@@ -72,7 +72,8 @@ function gotoQuery(query) {
 
     var squery = query.split(' ');
     if (squery.length == 2) {
-        var ra=parseFloat(squery[0]), dec=parseFloat(squery[1]);
+        var ra = parseFloat(squery[0]),
+            dec = parseFloat(squery[1]);
         if (!isNaN(ra) && !isNaN(dec)) {
             wwt.gotoRaDecZoom(ra, dec, wwt.get_fov(), true);
             $('#goto-query').attr('placeholder', 'Go to...');
@@ -81,19 +82,19 @@ function gotoQuery(query) {
     }
 
     $.ajax({
-            url: simbad_url,
-            type: "POST",
-            data: {
-                'submit': 'submit script',
-                'script': script
-            },
-            success: function(data) {
-                if (!_gotoSimbadResult(data)) {
-                    $('#goto-query').attr('placeholder', 'invalid').val('');
-                    return;
-                }
-                $('#goto-query').attr('placeholder', 'Go to...');
+        url: simbad_url,
+        type: "POST",
+        data: {
+            'submit': 'submit script',
+            'script': script
+        },
+        success: function(data) {
+            if (!_gotoSimbadResult(data)) {
+                $('#goto-query').attr('placeholder', 'invalid').val('');
+                return;
             }
+            $('#goto-query').attr('placeholder', 'Go to...');
+        }
     });
 }
 
