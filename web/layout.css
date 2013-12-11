@@ -12,6 +12,14 @@ body {
     margin-top: -7px;
 }
 
+.tooltip-inner {
+    background-color: rgb(57, 57, 57);    
+}
+
+.tooltip.bottom .tooltip-arrow{
+    border-bottom-color: rgb(57, 57, 57);
+}
+
 .facets .label {
     line-height: 200%;
 }
@@ -53,7 +61,6 @@ h5 {
     background-color:#EEEEEE;
     width:100%;
     border-top:1px solid #DDDDDD;
-    padding-bottom: 15px;
 /*    border-top:1px solid #DDDDDD;
     margin-top:20px;
     padding: 10px 0px 20px;
@@ -69,7 +76,7 @@ h5 {
 }
 .hide-element {
     visibility: hidden !important;
-    display: hidden;
+    display: none;
 }
 
 #sky-location {
@@ -77,4 +84,8 @@ h5 {
   padding: .2em 10px;
   background-color:rgba(255, 255, 255, .8);
 }
+
+#footer .detail {
+    display: none;
+    padding-bottom: 15px;
 }

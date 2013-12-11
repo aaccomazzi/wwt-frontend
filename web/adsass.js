@@ -13,7 +13,6 @@ var cat = [];
 var cat_color = '#ff0000';
 var cat_radius = 5;
 var cat_visible = false;
-var current_layer;
 
 function initialize() {
     wwt = wwtlib.WWTControl.initControl("WWTCanvas");
@@ -216,29 +215,36 @@ function default_layers() {
     var ra = parseFloat(getParameter('ra') || '0');
     var dec = parseFloat(getParameter('dec') || '0');
     var fov = parseFloat(getParameter('fov') || '60');
-    var layer = (getParameter('layer') || 'allSources') + '_512';
+    var layer = (getParameter('layer') || 'allSources');
+    if (layer.slice(layer.length - 4) !== '_512')
+        layer = layer + '_512';
 
-    current_layer = layer;
     wwt.setForegroundImageByName(layer);
 
     $('#facet-list a').each(function(i, o) {
         if ($(o).attr('href') == layer) {
             o.click();
+            $('#foreground-lbl').text($(o).text());
             return;
         }
     });
 
 
-    wwt.setBackgroundImageByName("WISE");
+    setBackground("WISE", "WISE");
     wwt.setForegroundOpacity(50);
 
     wwt.gotoRaDecZoom(ra, dec, fov, true);
 }
 
-function setForeground(layer) {
-    current_layer = layer;
+function setBackground(name, label) {
+    wwt.setBackgroundImageByName(name);
+    $('#background-lbl').text(label);
+}
+
+function setForeground(layer, label) {
     wwt.setForegroundImageByName(layer);
     wwt.setForegroundOpacity($("#slider-opacity").slider("option", "value"));
+    $('#foreground-lbl').text(label);
 }
 
 function deslectFacets() {
@@ -265,7 +271,7 @@ $(function() {
     $("#toggle-list a").click(function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
-        wwt.setBackgroundImageByName(url);
+        setBackground(url, $(this).text());
 
         //update highlight
         $("#toggle-list a").each(function(index) {
@@ -277,7 +283,7 @@ $(function() {
     $("#facet-list a").click(function(e) {
         e.preventDefault();
         var url = $(this).attr('href');
-        setForeground(url);
+        setForeground(url, $(this).text());
         deslectFacets();
         $(this).attr('class', 'label label-default');
     });
@@ -291,7 +297,7 @@ $(function() {
             var display = layer.slice(5, layer.length - 4);
 
             deslectFacets();
-            setForeground(layer);
+            setForeground(layer, display);
             $("#year-label").show().text(display);
         }
     });
@@ -307,7 +313,8 @@ $(function() {
         var ra = wwt.getRA() * 15,
             dec = wwt.getDec(),
             fov = wwt.get_fov(),
-            layer = current_layer;
+            layer = wwtlib.WWTControl.singleton.renderContext.get_foregroundImageset().$16;
+
         layer = layer.slice(0, layer.length - 4); // strip off _512
         var url = $('#aladin-link').attr('href') + '?ra=' + ra + '&dec=' + dec +
             '&fov=' + fov + '&layer=' + layer;
@@ -319,9 +326,20 @@ $(function() {
         gotoQuery(query);
     });
 
-    $('#goto-query').keyup(function(e){ // listen to enter key
+    $('#goto-query').keyup(function(e) { // listen to enter key
         if (e.keyCode != 13) return;
         var query = $(this).val();
         gotoQuery(query);
+    });
+
+    $('#base-list a, #facet-list a').tooltip({
+        'placement': 'bottom',
+        'delay': 500
+    });
+
+    $('#footer').click(function(e){$('#footer .detail').show(100);});
+
+    $("#footer").hover(function(e){}, function(e) {
+        $('#footer .detail').hide(100);
     });
 });
