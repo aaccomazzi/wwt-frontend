@@ -4,13 +4,9 @@ Create toast tile directories
 Usage:
 python toast.py image_to_toast
 """
-import os
-
-from astropy.io import fits
 import numpy as np
 import healpy as hp
-from healpy import ring2nest, smoothing
-from toasty import toast, healpix_sampler, normalizer
+from toasty import toast, healpix_sampler
 from skimage.io import imread
 
 url_tmpl = 'http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/%s/Norder3/Allsky.jpg'
