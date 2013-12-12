@@ -162,7 +162,7 @@ function wwtReady() {
     wwt.hideUI(true);
     wwt.settings.set_showConstellationBoundries(false);
     // Load in the image collection file
-    wwt.loadImageCollection("/adsass.wtml");
+    wwt.loadImageCollection("adsass.wtml");
 
     wwt.add_collectionLoaded(default_layers);
     wwt.add_annotationClicked(finderScope);

@@ -30,7 +30,7 @@ h5 {
     line-height: 12px;
 }
 
-.input-group, .btn {
+#facet-ui .input-group, #facet-ui .btn {
     width:100%;
     margin-bottom:5px;
 }
@@ -61,6 +61,7 @@ h5 {
     background-color:#EEEEEE;
     width:100%;
     border-top:1px solid #DDDDDD;
+    cursor: pointer;
 /*    border-top:1px solid #DDDDDD;
     margin-top:20px;
     padding: 10px 0px 20px;
