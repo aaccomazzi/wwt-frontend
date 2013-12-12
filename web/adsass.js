@@ -338,9 +338,24 @@ $(function() {
         'delay': 500
     });
 
-    $('#footer').click(function(e){$('#footer .detail').show(100);});
+    $('#footer').click(function(e) {
+        $('#footer .detail').show(100);
+    });
 
-    $("#footer").hover(function(e){}, function(e) {
+    $("#footer").hover(function(e) {}, function(e) {
         $('#footer .detail').hide(100);
+    });
+
+    $('#toggle-expand').click(function(e) {
+        e.preventDefault();
+        if ($('#ui-container').is(':visible')) {
+            $('#ui-container').hide(100);
+            $(this).removeClass('glyphicon-resize-small').addClass('glyphicon-resize-full');
+            $('#facet-ui').addClass('collapsed');
+        } else {
+            $('#ui-container').show(100);
+            $(this).removeClass('glyphicon-resize-full').addClass('glyphicon-resize-small');
+            $('#facet-ui').removeClass('collapsed');
+        }
     });
 });
