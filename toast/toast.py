@@ -2,17 +2,26 @@
 Create toast tile directories
 
 Usage:
-python toast.py image_to_toast
+python toast.py facet_to_toast
 """
 import logging
 
 import numpy as np
 import healpy as hp
 from toasty import toast, healpix_sampler
-from skimage.io import imread
+from PIL import Image
+from urllib import urlopen
+from cStringIO import StringIO
 
 url_tmpl = 'http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/SimbadHeatMaps/healpix/%s/Norder3/Allsky.jpg'
 logging.basicConfig(level=logging.INFO)
+
+
+def imread(url):
+    """ Read an image from a url """
+    data = StringIO(urlopen(url).read())
+    return np.array(Image.open(data))
+
 
 def natural_order(nside, ind, subn):
     assert nside <= subn
@@ -44,9 +53,9 @@ def aladin_to_healpix(data):
 
 def make_lut():
     x = np.arange(hp.nside2npix(512))
-    hp = healpix_sampler(x, nest=True)
+    hps = healpix_sampler(x, nest=True)
     def lut_sampler(x, y):
-        result = hp(x, y).astype(np.int)
+        result = hps(x, y).astype(np.int)
         r = result % 256
         g = (result / 256) % 256
         b = result / 256 / 256
@@ -56,12 +65,12 @@ def make_lut():
 
 def run(path):
     url = url_tmpl % path.split('_512')[0]
-    logging.info("Fetch %s" % url)
+    logging.info("Fetch %s",  url)
 
     data = np.array(imread(url))[:, :, 0]
     data = np.flipud(data)
     data = aladin_to_healpix(data)
-    logging.info("Toasting %s" % path)
+    logging.info("Toasting %s", path)
     sampler = healpix_sampler(data, nest=True)
     toast(sampler, 3, path.split('.')[0])
 

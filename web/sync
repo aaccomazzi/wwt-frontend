@@ -1,2 +1,0 @@
-aws s3 sync . s3://adsass --acl=public-read
-rsync -avz . cbeaumon@cfa0:/data/www/projects/adsass/wwt/

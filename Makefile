@@ -1,4 +1,7 @@
-all: tiles
+all: catalog tiles
+
+catalog:
+	cd cats && make
 
 tiles:
-	cd web && make
+	cd toast && make
