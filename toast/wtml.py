@@ -19,7 +19,7 @@ template = Template( """
 </ImageSet>
 {% endfor %}
 
-<ImageSet Generic="False" DataSetType="Sky" BandPass="Visible" Name="Harvard v All" Url="/harvard_v_all/{1}/{3}/{3}_{2}.png" BaseTileLevel="0" TileLevels="3" BaseDegreesPerTile="180" FileType=".png" BottomsUp="False" Projection="Toast" QuadTreeMap="" CenterX="0" CenterY="0" OffsetX="0" OffsetY="0" Rotation="0" Sparse="False" ElevationModel="False">
+<ImageSet Generic="False" DataSetType="Sky" BandPass="Visible" Name="Harvard v All" Url="harvard_v_all/{1}/{3}/{3}_{2}.png" BaseTileLevel="0" TileLevels="3" BaseDegreesPerTile="180" FileType=".png" BottomsUp="False" Projection="Toast" QuadTreeMap="" CenterX="0" CenterY="0" OffsetX="0" OffsetY="0" Rotation="0" Sparse="False" ElevationModel="False">
 <Credits />
 <CreditsUrl />
 <ThumbnailUrl></ThumbnailUrl>
