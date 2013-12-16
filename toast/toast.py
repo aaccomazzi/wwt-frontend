@@ -62,8 +62,39 @@ def make_lut():
         np.dstack((r, g, b)).astype(np.uint8)
     toast(lut_sampler, 3, 'lut')
 
+def harvard_sampler(all, harvard):
+    hps_all = healpix_sampler(all, nest=True)
+    hps_harvard = healpix_sampler(harvard, nest=True)
+    def sampler(x, y):
+        r = hps_harvard(x, y)
+        b = hps_all(x, y)
+        return np.dstack((r, b, b))
+    return sampler
+
+def run_harvard():
+    url = url_tmpl % 'allSources'
+    logging.info("Fetch %s",  url)
+    data = np.array(imread(url))[:, :, 0]
+    data = np.flipud(data)
+    data = aladin_to_healpix(data)
+    all = data
+
+    url = 'http://cdsannotations.u-strasbg.fr/ADSAllSkySurvey/harvard-ads-authors/HiPS/Norder3/Allsky.jpg'
+    logging.info("Fetch %s",  url)
+    data = np.array(imread(url))[:, :, 0]
+    data = np.flipud(data)
+    data = aladin_to_healpix(data)
+    harvard = data
+
+    logging.info("Toasting harvard")
+    sampler = harvard_sampler(all, harvard)
+    toast(sampler, 3, 'harvard_v_all')
+
 
 def run(path):
+    if path == 'harvard_v_all':
+        return run_harvard()
+
     url = url_tmpl % path.split('_512')[0]
     logging.info("Fetch %s",  url)
 
