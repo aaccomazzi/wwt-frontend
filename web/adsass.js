@@ -27,7 +27,9 @@ function getParameter(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
 
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    if (results === null)
+        return "";
+    return decodeURIComponent(results[1].replace(/\+/g, " ").replace(/\//g, ""));
 }
 
 function resize_canvas() {
@@ -217,8 +219,11 @@ function default_layers() {
     var dec = parseFloat(getParameter('dec') || '0');
     var fov = parseFloat(getParameter('fov') || '60');
     var layer = (getParameter('layer') || 'allSources');
-    if (layer.slice(layer.length - 4) !== '_512')
+    if (layer == 'harvard') {
+        layer = 'Harvard v All';
+    } else if (layer.slice(layer.length - 4) !== '_512') {
         layer = layer + '_512';
+    }
 
     wwt.setForegroundImageByName(layer);
 
@@ -316,7 +321,12 @@ $(function() {
             fov = wwt.get_fov(),
             layer = wwtlib.WWTControl.singleton.renderContext.get_foregroundImageset().$16;
 
-        layer = layer.slice(0, layer.length - 4); // strip off _512
+        if (layer == 'Harvard v All') {
+            layer = 'harvard';
+        } else {
+            layer = layer.slice(0, layer.length - 4); // strip off _512
+        }
+
         var url = $('#aladin-link').attr('href') + '?ra=' + ra + '&dec=' + dec +
             '&fov=' + fov + '&layer=' + layer;
         window.open(url);
