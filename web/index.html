@@ -12,7 +12,12 @@
     <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
-    <title>ADS All-Sky survey on WorldWide Telescope</title>   
+     <!--Two files needed for tutorial"-->
+    <link rel="stylesheet" href="../aladin/introjs.css" />
+    <script src="../aladin/intro.js"></script>
+
+
+    <title>ADS All-Sky survey on WorldWide Telescope</title>
 </head>
 
 <body onload="initialize()" onresize="resize_canvas()">
@@ -25,7 +30,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">The ADS All Sky Survey</a>
+            <a data-step="1" data-intro="Hi and welcome to the ADSASS! Click Next to navigate this tour." class="navbar-brand" href="/" class="navbar-brand" href="/">The ADS All Sky Survey</a>
+
+
 
         </div>
 
@@ -36,6 +43,9 @@
                     <a href="../aladin/" target="_blank" class="" id='aladin-link'>
                         <span class="glyphicon glyphicon-new-window"></span>Open Aladin version</a>
                 </li>
+                <li><a data-step="2" data-intro="You can come back to the tour anytime from here." href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
+        <span class="glyphicon glyphicon-info-sign"></span> Tour
+      </a>
             </ul>
 
             <p class="navbar-text pull-right">Astronomy articles. In the sky.</p>
@@ -47,44 +57,44 @@
         <div id="ui-container">
 
             <div class="btn-toolbar pull-right" style="width: 140px;">
-                <button type="button" class="btn btn-danger" id="button-source">
+                <button data-step="10" data-intro="Show Sources displays many individual objects on the sky. Click on any one to view its associated papers."  type="button" class="btn btn-danger" id="button-source">
                     Show Sources
                 </button>
                 <br>
-                <div class="input-group">
+                <div class="input-group" data-step="11" data-intro="To zoom to a particular object, enter it's name or coordinates here." >
                     <input type="text" class="form-control" placeholder="Go to..." id="goto-query">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="btn-goto">
+                        <button  class="btn btn-default" type="button" id="btn-goto">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;</button>
                     </span>
                 </div>
             </div>
 
-            <div class="well-title">CHOOSE HEATMAP</div>
+            <div data-step="3" data-intro="This map is based on virtually ALL papers ever published in astronomy. But you can filter the articles shown in this map using facets." class="well-title">CHOOSE HEATMAP</div>
 
             <div class="facets">
 
                 <span id="facet-list">
                     <span class="label label-info">Object</span>
                     <a href="allSources_512" class="label label-default">All</a>&nbsp;
-                    <a href="Star_512">Stars</a>&nbsp;
+                    <a data-step="4" data-intro="For example, click on <b>Stars</b> to visualize only articles written about stars." rel="tooltip" title="All papers referencing star objects" href="Star_512">Stars</a>&nbsp;
                     <a href="Galaxy_512">Galaxies</a>&nbsp;
                     <a href="HII-region_512">HII regions</a>&nbsp;
                     <a href="Nebula_512">Nebulae</a>&nbsp;
                     <a href="Other_512">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br>
                     <span class="label label-info">Band</span>
-                    <a href="Radio_512">Radio</a>&nbsp;
+                    <a data-step="5" data-intro="Facets also work for wavelength. For example, click on <b>Radio</b>, to see how the sky looks to radio astronomers (based on their scholarly output)"  href="Radio_512">Radio</a>&nbsp;
                     <a href="Infrared_512">Infrared</a>&nbsp;
                     <a href="UV_512">Ultraviolet</a>&nbsp;
                     <a href="X_512">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br>
                     <span class="label label-info">Custom</span>
-                    <a href="Harvard v All" data-toggle="tooltip" title="Harvard (Red) vs All (Blue)">Harvard/All</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a data-step="6" data-intro="We have some custom facets too. For example, click here to show what parts of the sky have been studied by authors of the <b>Harvard-Smithsonian Center for Astrophysics</b>" href="Harvard v All" data-toggle="tooltip" title="Harvard (Red) vs All (Blue)">Harvard/All</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <br>
                 <span class="label label-info">Year</span>
-                <div style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <div data-step="7" data-intro="Interested in a specific timeframe? Move the year slider and display how the sky looked in 2000, 1990, or 1850(!), for example, based on astronomy articles published in those years." style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                     <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
                 </div>
@@ -105,7 +115,7 @@
                     &nbsp;
                     <a href="GLIMPSE/MIPSGAL" data-toggle="tooltip" title="Infrared Survey of the Galactic Midplane"> GLIMPSE </a>
                     &nbsp;
-                    <a href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
+                    <a data-step="8" data-intro="Now, how about comparing these heatmap with some actual sky images? Click on these surveys to toggle the last loaded heatmap with a base layer."  href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
                     &nbsp;
                     <a href="RASS: ROSAT All Sky Survey (X-ray)" data-toggle="tooltip" title="ROSAT All Sky Survey"> ROSAT  </a>
                     &nbsp;
@@ -119,14 +129,14 @@
             <div style="display: inline-block; margin-top: 7px;">
 
                 <span class="badge" id="background-lbl">&nbsp;</span>
-                <div style="margin:0px 10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                <div data-step="9" data-intro="You can use this slider to toggle the opacity of the backgrounds." style="margin:0px 10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                     <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
                 </div>
                 <span class="badge" id="foreground-lbl">&nbsp;</span>
             </div>
         </div>
-        <a id="toggle-expand" class="pull-right glyphicon glyphicon-resize-small" role="button" href="#"></a>
+        <a data-step="13" data-intro="Use this button to show/hide the menu." id="toggle-expand" class="pull-right glyphicon glyphicon-resize-small" role="button" href="#"></a>
     </div>
 
     <div id="WorldWideTelescopeControlHost">
@@ -150,16 +160,19 @@
 
     </div>
 
-    <div id="footer">
+     <div id="footer">
+
         <div class="container">
+
             <center>
                 <h4>ADS All-Sky Survey is a NASA-funded project</h4>
-                <div class="detail">
+                <div class="container">
                     <p class="text-muted credit" style="max-width:700px">The ADSASS is a collaboration of the Harvard-Smithsonian Center for Astrophysics, Harvard University, the Strasbourg astronomical Data Center (CDS), and Microsoft Research.</p> <a href="http://projects.iq.harvard.edu/seamlessastronomy/">Seamless Astronomy</a>&nbsp;·&nbsp;<a href="http://adslabs.org">ADS Labs</a>&nbsp;·&nbsp;<a href="http://cdsweb.u-strasbg.fr/">CDS</a>
-                </div class="detail">
+                </div class="container">
             </center>
         </div>
     </div>
+
 
  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
