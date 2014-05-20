@@ -214,6 +214,25 @@ function toggleCatalog() {
     }
 }
 
+function getCookie(key) {
+    keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+function setCookie(key, value) {
+    document.cookie = key + '=' + value;
+}
+
+function highlightTourForNewcomers() {
+    userID = getCookie('userID');
+    if (userID !== null) {
+        return;
+    }
+    $('.guide').css('color', '#6699CC');
+    userID = Math.random().toString().substr(2);
+    setCookie('userID', userID);
+}
+
 function default_layers() {
     var ra = parseFloat(getParameter('ra') || '0');
     var dec = parseFloat(getParameter('dec') || '0');
@@ -377,4 +396,6 @@ $(function() {
             showContextMenu();
         }
     });
+
+    highlightTourForNewcomers();
 });

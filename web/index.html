@@ -12,7 +12,7 @@
     <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
-     <!--Two files needed for tutorial"-->
+    <!--Two files needed for tutorial"-->
     <link rel="stylesheet" href="../aladin/introjs.css" />
     <script src="../aladin/intro.js"></script>
 
@@ -37,18 +37,25 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse"    >
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-            <li><a href="http://www.adsass.org/aladin/about.html"><span class="glyphicon glyphicon-bullhorn"></span> About</a></li>
-      <li><a href="http://www.adsass.org/aladin/videos.html"><span class="glyphicon glyphicon-play"></span> Watch videos</a></li>
-
-                <li><a data-step="2" data-intro="You can come back to this Guide anytime from this button." href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start(); showContextMenu();"
-        <span class="glyphicon glyphicon-info-sign" ></span> <span>Guide</span>
-      </a>
-       <li>
-                    <a href="http://www.adsass.org/aladin" target="_blank" class="" id='aladin-link'>
-                        <span class="glyphicon glyphicon-new-window"></span>Open Aladin version</a>
+                <li>
+                    <a href="http://www.adsass.org/aladin/about.html">
+                        <span class="glyphicon glyphicon-bullhorn"></span>About</a>
                 </li>
+                <li>
+                    <a href="http://www.adsass.org/aladin/videos.html">
+                        <span class="glyphicon glyphicon-play"></span>Watch videos</a>
+                </li>
+
+                <li>
+                    <a data-step="2" data-intro="You can come back to this Guide anytime from this button." href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start(); showContextMenu();" class="guide">
+                        <span class="glyphicon glyphicon-info-sign"></span> Guide
+                    </a>
+                    <li>
+                        <a href="http://www.adsass.org/aladin" target="_blank" class="" id='aladin-link'>
+                            <span class="glyphicon glyphicon-new-window"></span>Open Aladin version</a>
+                    </li>
 
             </ul>
 
@@ -62,20 +69,25 @@
 
 
             <div class="btn-toolbar pull-right" style="width: 140px;">
-                <button data-step="14" data-intro="Show Sources displays many individual objects on the sky. Click on any one to view its associated papers."  type="button" class="btn btn-danger" id="button-source">
+                <button data-step="14" data-intro="Show Sources displays many individual objects on the sky. Click on any one to view its associated papers." type="button" class="btn btn-danger" id="button-source">
                     Show Sources
                 </button>
                 <br>
-                <div class="input-group" data-step="15" data-intro="To zoom to a particular object, enter it's name or coordinates here." >
+                <div class="input-group" data-step="15" data-intro="To zoom to a particular object, enter it's name or coordinates here.">
                     <input type="text" class="form-control" placeholder="Go to..." id="goto-query">
                     <span class="input-group-btn">
-                        <button  class="btn btn-default" type="button" id="btn-goto">
+                        <button class="btn btn-default" type="button" id="btn-goto">
                             <span class="glyphicon glyphicon-search"></span>&nbsp;</button>
                     </span>
                 </div>
             </div>
-			<div class="well-title" ><span data-step="3" data-intro="You can FILTER the Heatmap and Background image by choosing facets."> FILTER BY:</span></div>
-            <div    class="well-title"><br/><span data-step="7" data-intro="The options below allow you to change the heatmap shown in the foreground layer.">CHOOSE HEATMAP</span></div>
+            <div class="well-title">
+                <span data-step="3" data-intro="You can FILTER the Heatmap and Background image by choosing facets.">FILTER BY:</span>
+            </div>
+            <div class="well-title">
+                <br/>
+                <span data-step="7" data-intro="The options below allow you to change the heatmap shown in the foreground layer.">CHOOSE HEATMAP</span>
+            </div>
 
             <div class="facets">
 
@@ -89,7 +101,7 @@
                     <a href="Other_512">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br>
                     <span class="label label-info">Band</span>
-                    <a data-step="9" data-intro="Facets also work for wavelength. For example, click on <b>Radio</b>, to see how the sky looks to radio astronomers (based on their scholarly output)."  href="Radio_512">Radio</a>&nbsp;
+                    <a data-step="9" data-intro="Facets also work for wavelength. For example, click on <b>Radio</b>, to see how the sky looks to radio astronomers (based on their scholarly output)." href="Radio_512">Radio</a>&nbsp;
                     <a href="Infrared_512">Infrared</a>&nbsp;
                     <a href="UV_512">Ultraviolet</a>&nbsp;
                     <a href="X_512">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,7 +119,9 @@
 
             </div>
 
-            <div style="margin-top:10px" class="well-title"><span data-step="12" data-intro="The buttons below allow you to change the background layer.">BACKGROUND LAYER</span></div>
+            <div style="margin-top:10px" class="well-title">
+                <span data-step="12" data-intro="The buttons below allow you to change the background layer.">BACKGROUND LAYER</span>
+            </div>
             <span id="base-list">
                 <span id="toggle-list">
                     <a href="Digitized Sky Survey (Color)" data-toggle="tooltip" title="Digitized Sky Survey"> Optical </a> &nbsp;
@@ -120,7 +134,7 @@
                     &nbsp;
                     <a href="GLIMPSE/MIPSGAL" data-toggle="tooltip" title="Infrared Survey of the Galactic Midplane"> GLIMPSE </a>
                     &nbsp;
-                    <a data-step="13" data-intro="Click on these surveys to change the background image."  href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
+                    <a data-step="13" data-intro="Click on these surveys to change the background image." href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
                     &nbsp;
                     <a href="RASS: ROSAT All Sky Survey (X-ray)" data-toggle="tooltip" title="ROSAT All Sky Survey"> ROSAT  </a>
                     &nbsp;
@@ -133,7 +147,7 @@
             <br>
             <div style="display: inline-block; margin-top: 7px;">
 
-                <span data-step="4" data-intro="This button displays which background image is shown. Change the background image by clicking on the <b>Background Layer</b> options above."  class="badge" id="background-lbl" data-toggle="tooltip" title="Background image">Optical</span>
+                <span data-step="4" data-intro="This button displays which background image is shown. Change the background image by clicking on the <b>Background Layer</b> options above." class="badge" id="background-lbl" data-toggle="tooltip" title="Background image">Optical</span>
                 <div data-step="6" data-intro="You can use this slider to change the opacity of the backgrounds to compare the background and heatmap." style="margin:0px 10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                     <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
@@ -147,10 +161,10 @@
 
 
         <a data-step="16" data-intro="Use this button to show/hide the menu." id="toggle-expand" class="pull-right glyphicon glyphicon-resize-small" role="button" href="#"></a>
-        <a  >&nbsp;</a>
+        <a>&nbsp;</a>
 
 
-        </div>
+    </div>
 
 
     </div>
@@ -158,7 +172,7 @@
 
 
     <div id="WorldWideTelescopeControlHost">
-        <div id="WWTCanvas" style="width: 500px; height: 518px; border-style: none; border-width: 0px;" >
+        <div id="WWTCanvas" style="width: 500px; height: 518px; border-style: none; border-width: 0px;">
         </div>
     </div>
     <span id="sky-location"></span>
@@ -181,12 +195,13 @@
 
 
 
-     <div id="footer">
+    <div id="footer">
 
         <div class="container">
 
             <center>
-                <h4>ADS All-Sky Survey is a NASA-funded project (+)</span></h4>
+                <h4>ADS All-Sky Survey is a NASA-funded project (+)</span>
+                </h4>
                 <div class="detail">
                     <p class="text-muted credit" style="max-width:750px">The ADSASS is a collaboration of the Harvard-Smithsonian Center for Astrophysics, Harvard University, the Strasbourg astronomical Data Center (CDS), and Microsoft Research. Data extracted from the SIMBAD database.</p> <a href="http://projects.iq.harvard.edu/seamlessastronomy/">Seamless Astronomy</a>&nbsp;·&nbsp;<a href="http://adslabs.org">ADS Labs</a>&nbsp;·&nbsp;<a href="http://cdsweb.u-strasbg.fr/">CDS</a>&nbsp;·&nbsp;<a href="http://simbad.u-strasbg.fr/simbad/">SIMBAD</a>
                 </div class="detail">
@@ -195,15 +210,22 @@
     </div>
 
 
- <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-46812756-1', 'adsass.org');
-  ga('send', 'pageview');
-  </script>
+    ga('create', 'UA-46812756-1', 'adsass.org');
+    ga('send', 'pageview');
+    </script>
 </body>
 
 <script src="adsass.js"></script>
