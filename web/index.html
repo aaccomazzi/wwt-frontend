@@ -30,22 +30,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a data-step="1" data-intro="Hi and welcome to the ADSASS! Click Next to navigate this tour." class="navbar-brand" href="/" class="navbar-brand" href="/">The ADS All Sky Survey</a>
+            <a data-step="1" data-intro="Welcome to the ADSASS WorldWide Telescope version. Use this Guide to learn about its features. This ADSASS viewer visualizes the parts of the sky that have been studied by astronomers. The <i>hotter</i> a part of the sky is, the more it has been studied in the literature." class="navbar-brand" href="/" class="navbar-brand" href="/">The ADS All Sky Survey</a>
 
 
 
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div class="collapse navbar-collapse navbar-ex1-collapse"    >
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="../aladin/" target="_blank" class="" id='aladin-link'>
+            <li><a href="http://www.adsass.org/aladin/about.html"><span class="glyphicon glyphicon-bullhorn"></span> About</a></li>
+      <li><a href="http://www.adsass.org/aladin/videos.html"><span class="glyphicon glyphicon-play"></span> Watch videos</a></li>
+               
+                <li><a data-step="2" data-intro="You can come back to this Guide anytime from this button." href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
+        <span style="color:#6699CC" class="glyphicon glyphicon-info-sign" ></span> <span style="color:#6699CC"">Guide</span>
+      </a>
+       <li>
+                    <a href="http://www.adsass.org/aladin" target="_blank" class="" id='aladin-link'>
                         <span class="glyphicon glyphicon-new-window"></span>Open Aladin version</a>
                 </li>
-                <li><a data-step="2" data-intro="You can come back to the tour anytime from here." href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
-        <span class="glyphicon glyphicon-info-sign"></span> Tour
-      </a>
+
             </ul>
 
             <p class="navbar-text pull-right">Astronomy articles. In the sky.</p>
@@ -55,13 +59,14 @@
 
     <div class="well" id='facet-ui'>
         <div id="ui-container">
+            
 
             <div class="btn-toolbar pull-right" style="width: 140px;">
-                <button data-step="10" data-intro="Show Sources displays many individual objects on the sky. Click on any one to view its associated papers."  type="button" class="btn btn-danger" id="button-source">
+                <button data-step="14" data-intro="Show Sources displays many individual objects on the sky. Click on any one to view its associated papers."  type="button" class="btn btn-danger" id="button-source">
                     Show Sources
                 </button>
                 <br>
-                <div class="input-group" data-step="11" data-intro="To zoom to a particular object, enter it's name or coordinates here." >
+                <div class="input-group" data-step="15" data-intro="To zoom to a particular object, enter it's name or coordinates here." >
                     <input type="text" class="form-control" placeholder="Go to..." id="goto-query">
                     <span class="input-group-btn">
                         <button  class="btn btn-default" type="button" id="btn-goto">
@@ -69,32 +74,32 @@
                     </span>
                 </div>
             </div>
-
-            <div data-step="3" data-intro="This map is based on virtually ALL papers ever published in astronomy. But you can filter the articles shown in this map using facets." class="well-title">CHOOSE HEATMAP</div>
+			<div class="well-title" ><span data-step="3" data-intro="You can FILTER the Heatmap and Background image by choosing facets."> FILTER BY:</span></div>
+            <div    class="well-title"><br/><span data-step="7" data-intro="The options below allow you to change the heatmap shown in the foreground layer.">CHOOSE HEATMAP</span></div>
 
             <div class="facets">
 
                 <span id="facet-list">
                     <span class="label label-info">Object</span>
                     <a href="allSources_512" class="label label-default">All</a>&nbsp;
-                    <a data-step="4" data-intro="For example, click on <b>Stars</b> to visualize only articles written about stars." rel="tooltip" title="All papers referencing star objects" href="Star_512">Stars</a>&nbsp;
+                    <a data-step="8" data-intro="For example, click on <b>Stars</b> to visualize only articles written about stars." rel="tooltip" title="All papers referencing star objects" href="Star_512">Stars</a>&nbsp;
                     <a href="Galaxy_512">Galaxies</a>&nbsp;
                     <a href="HII-region_512">HII regions</a>&nbsp;
                     <a href="Nebula_512">Nebulae</a>&nbsp;
                     <a href="Other_512">Other</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br>
                     <span class="label label-info">Band</span>
-                    <a data-step="5" data-intro="Facets also work for wavelength. For example, click on <b>Radio</b>, to see how the sky looks to radio astronomers (based on their scholarly output)"  href="Radio_512">Radio</a>&nbsp;
+                    <a data-step="9" data-intro="Facets also work for wavelength. For example, click on <b>Radio</b>, to see how the sky looks to radio astronomers (based on their scholarly output)"  href="Radio_512">Radio</a>&nbsp;
                     <a href="Infrared_512">Infrared</a>&nbsp;
                     <a href="UV_512">Ultraviolet</a>&nbsp;
                     <a href="X_512">X-ray</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <br>
                     <span class="label label-info">Custom</span>
-                    <a data-step="6" data-intro="We have some custom facets too. For example, click here to show what parts of the sky have been studied by authors of the <b>Harvard-Smithsonian Center for Astrophysics</b>" href="Harvard v All" data-toggle="tooltip" title="Harvard (Red) vs All (Blue)">Harvard/All</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a data-step="10" data-intro="We have some custom facets too. For example, click here to show what parts of the sky have been studied by authors of the <b>Harvard-Smithsonian Center for Astrophysics</b>" href="Harvard v All" data-toggle="tooltip" title="Harvard (Red) vs All (Blue)">Harvard/All</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
                 <br>
                 <span class="label label-info">Year</span>
-                <div data-step="7" data-intro="Interested in a specific timeframe? Move the year slider and display how the sky looked in 2000, 1990, or 1850(!), for example, based on astronomy articles published in those years." style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <div data-step="11" data-intro="Interested in a specific timeframe? Move the year slider and display how the sky looked in 2000, 1990, or 1850(!), for example, based on astronomy articles published in those years." style="margin-left:14px; display: inline-block;" id="slider-year" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                     <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
                 </div>
@@ -102,7 +107,7 @@
 
             </div>
 
-            <div style="margin-top:10px" class="well-title">BACKGROUND LAYER</div>
+            <div style="margin-top:10px" class="well-title"><span data-step="12" data-intro="The buttons below allow you to change the background layer.">BACKGROUND LAYER</span></div>
             <span id="base-list">
                 <span id="toggle-list">
                     <a href="Digitized Sky Survey (Color)" data-toggle="tooltip" title="Digitized Sky Survey"> Optical </a> &nbsp;
@@ -115,7 +120,7 @@
                     &nbsp;
                     <a href="GLIMPSE/MIPSGAL" data-toggle="tooltip" title="Infrared Survey of the Galactic Midplane"> GLIMPSE </a>
                     &nbsp;
-                    <a data-step="8" data-intro="Now, how about comparing these heatmap with some actual sky images? Click on these surveys to toggle the last loaded heatmap with a base layer."  href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
+                    <a data-step="13" data-intro="Click on these surveys to change the background image."  href="Hydrogen Alpha Full Sky Map" data-toggle="tooltip" title="Hydrogen alpha Map"> H-alpha </a>
                     &nbsp;
                     <a href="RASS: ROSAT All Sky Survey (X-ray)" data-toggle="tooltip" title="ROSAT All Sky Survey"> ROSAT  </a>
                     &nbsp;
@@ -128,19 +133,32 @@
             <br>
             <div style="display: inline-block; margin-top: 7px;">
 
-                <span class="badge" id="background-lbl">&nbsp;</span>
-                <div data-step="9" data-intro="You can use this slider to toggle the opacity of the backgrounds." style="margin:0px 10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                <span data-step="4" data-intro="This button displays which background image is shown. Change the background image by clicking on the <b>Background Layer</b> options above."  class="badge" id="background-lbl" data-toggle="tooltip" title="Background image">Optical</span>
+                <div data-step="6" data-intro="You can use this slider to toggle the opacity of the backgrounds to compare the background layer selected to the Heatmap selected" style="margin:0px 10px; display: inline-block;" id="slider-opacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                     <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-max" style="width: 100%;"></div>
                     <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a>
                 </div>
-                <span class="badge" id="foreground-lbl">&nbsp;</span>
+                <span data-step="5" data-intro="This displays which foreground heatmap is shown. Change the foreground image by selecting from the <b>Heatmap</b> options above." class="badge" id="foreground-lbl" data-toggle="tooltip" title="Foreground heatmap">All</span>
+               
             </div>
         </div>
-        <a data-step="13" data-intro="Use this button to show/hide the menu." id="toggle-expand" class="pull-right glyphicon glyphicon-resize-small" role="button" href="#"></a>
+        
+       
+    
+        
+        <a data-step="16" data-intro="Use this button to show/hide the menu." id="toggle-expand" class="pull-right glyphicon glyphicon-resize-small" role="button" href="#"></a>
+        <a  >&nbsp;</a>
+        
+        
+        </div>
+      
+        
     </div>
+    
+   
 
     <div id="WorldWideTelescopeControlHost">
-        <div id="WWTCanvas" style="width: 500px; height: 518px; border-style: none; border-width: 0px;">
+        <div id="WWTCanvas" style="width: 500px; height: 518px; border-style: none; border-width: 0px;" >
         </div>
     </div>
     <span id="sky-location"></span>
@@ -159,6 +177,9 @@
     </div>
 
     </div>
+  
+
+
 
      <div id="footer">
 
