@@ -350,7 +350,7 @@ $(function() {
         var ra = wwt.getRA() * 15,
             dec = wwt.getDec(),
             fov = wwt.get_fov(),
-            layer = wwtlib.WWTControl.singleton.renderContext.get_foregroundImageset().$16;
+            layer = wwtlib.WWTControl.singleton.renderContext.get_foregroundImageset().get_name();
 
         if (layer == 'Harvard v All') {
             layer = 'harvard';
