@@ -102,11 +102,11 @@ function gotoQuery(query) {
 
 
 function finderScope(parent, obj) {
-    var simbad_url = 'http://simbad.u-strasbg.fr/simbad/sim-id?Ident=' + encodeURIComponent(obj.id);
+    var simbad_url = 'http://simbad.u-strasbg.fr/simbad/sim-id?Ident=' + encodeURIComponent(obj.get_id());
 
     var url = 'http://simbad.harvard.edu/simbad/sim-script';
     var script = 'output script=off\noutput console=off\noutput error=off\nformat object f1 "%BIBCODELIST(R;;1000;%B | %1A | %J)"';
-    script += '\nquery ' + obj.id;
+    script += '\nquery ' + obj.get_id();
 
     $.ajax({
         url: url,
@@ -150,7 +150,7 @@ function finderScope(parent, obj) {
             buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>";
             buttons += '&nbsp; <a class="btn btn-default" type="button" target="_blank" href="' + biblist + '"> Open papers in ADS </a>';
 
-            $('#finderscope-label').html(obj.id + " " + buttons);
+            $('#finderscope-label').html(obj.get_id() + " " + buttons);
             $('#finderscope .modal-body').html(output);
             $("#finderscope").modal('show');
         }
