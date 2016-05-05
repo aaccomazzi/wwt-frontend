@@ -122,33 +122,52 @@ function finderScope(parent, obj) {
             var biblist = [];
             truncated = false;
 
-            //trim list of papers to 120 to avoid URL too long to fail
-            if (uresult.length > 201) {
+	    // trim list of papers to 1000 to avoid unwieldy behavior in ADS UI
+	    // NOTE: some day we can do this better via an object search in ADS
+	    max_papers = 1000
+            if (uresult.length > max_papers) {
                 truncated = true;
-                paper_length = 201;
+                paper_length = max_papers;
             } else {
                 paper_length = uresult.length;
                 truncated = false;
             }
 
             if (truncated) {
-                output += "<p class='small text-danger'>Note: List truncated to 200 papers</p>";
+                output += "<p class='small text-danger'>Note: List truncated to " + max_papers + " most recent papers</p>";
             }
 
 
-            for (var i = 0; i < paper_length; i++) {
+            for (var i = 0; i <= paper_length; i++) {
                 if ( !! uresult[i]) {
-                    output += '<a target="_blank" href="http://adsabs.harvard.edu/abs/' + encodeURIComponent(uresult[i].split('|')[0]) + '">' + uresult[i].split('|')[1].trim() + ' ' + uresult[i].split('|')[2].trim() + '</a><br>';
-                    biblist.push(encodeURIComponent(uresult[i].split('|')[0]));
+                    output += '<a target="_blank" href="https://ui.adsabs.harvard.edu/#abs/' + encodeURIComponent(uresult[i].split('|')[0]) + '">' + uresult[i].split('|')[1].trim() + ' ' + uresult[i].split('|')[2].trim() + '</a><br>';
+                    biblist.push(uresult[i].split('|')[0].trim());
                 }
             }
 
-            biblist = biblist + "";
-            biblist = biblist.replace(/\,/g, 'OR%20');
-            biblist = 'http://labs.adsabs.harvard.edu/ui/cgi-bin/topicSearch?q=bibcode:(' + biblist + ')';
-
             buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>";
-            buttons += '&nbsp; <a class="btn btn-default" type="button" target="_blank" href="' + biblist + '"> Open papers in ADS </a>';
+            buttons += '&nbsp; <a id="ads-btn" class="btn btn-default" type="button" href="#"> Open papers in ADS </a>';
+
+	    // link to ADS bumblebee via POST redirection service
+	    // beware of pop-up blockers
+	    $('body').click('#ads-btn', function() {
+		$.ajax({
+		    type: 'POST',
+		    url: 'http://adsabs.harvard.edu/view/redirect',
+		    data: JSON.stringify(biblist),
+		    contentType: 'application/json; charset=utf-8',
+		    dataType: 'json',
+		    success: function(data, textStatus) {
+		        if (data.redirect) {
+		    	    // data.redirect contains the string URL to redirect to
+		    	    window.open(data.redirect, "_blank");
+		        } else {
+		      	    console.error('Redirect failed' + data);
+			}
+		    }
+		});
+		return false;
+	    });
 
             $('#finderscope-label').html(obj.get_id() + " " + buttons);
             $('#finderscope .modal-body').html(output);
