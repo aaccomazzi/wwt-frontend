@@ -140,7 +140,7 @@ function finderScope(parent, obj) {
 
             for (var i = 0; i <= paper_length; i++) {
                 if ( !! uresult[i]) {
-                    output += '<a target="_blank" href="https://ui.adsabs.harvard.edu/#abs/' + encodeURIComponent(uresult[i].split('|')[0]) + '">' + uresult[i].split('|')[1].trim() + ' ' + uresult[i].split('|')[2].trim() + '</a><br>';
+                    output += '<a target="_blank" href="https://ui.adsabs.harvard.edu/#abs/' + encodeURIComponent(uresult[i].split('|')[0].trim()) + '">' + uresult[i].split('|')[1].trim() + ' ' + uresult[i].split('|')[2].trim() + '</a><br>';
                     biblist.push(uresult[i].split('|')[0].trim());
                 }
             }
@@ -148,9 +148,13 @@ function finderScope(parent, obj) {
             buttons = "<a class='btn btn-default' type='button' target='_blank' href='" + simbad_url + "'> SIMBAD Entry </a>";
             buttons += '&nbsp; <a id="ads-btn" class="btn btn-default" type="button" href="#"> Open papers in ADS </a>';
 
+            $('#finderscope-label').html(obj.get_id() + " " + buttons);
+            $('#finderscope .modal-body').html(output);
+            $("#finderscope").modal('show');
+
 	    // link to ADS bumblebee via POST redirection service
 	    // beware of pop-up blockers
-	    $('body').click('#ads-btn', function() {
+	    $('#ads-btn').click(function() {
 		$.ajax({
 		    type: 'POST',
 		    url: 'http://adsabs.harvard.edu/view/redirect',
@@ -169,9 +173,6 @@ function finderScope(parent, obj) {
 		return false;
 	    });
 
-            $('#finderscope-label').html(obj.get_id() + " " + buttons);
-            $('#finderscope .modal-body').html(output);
-            $("#finderscope").modal('show');
         }
     });
 }
